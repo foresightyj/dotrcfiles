@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+git status --porcelain | sed -n 's/^?? \(.\+\)/\1/p' | xargs -I{} rm -- {}
+
+

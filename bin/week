@@ -1,0 +1,50 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# summarize this week and last week
+
+import os, sys
+from time import strftime, localtime
+from datetime import date, datetime
+from collections import defaultdict
+from itertools import groupby
+
+os.chdir(os.environ.get("HOME"))
+
+timefmt = "%a, %d %b %Y %H:%M:%S"
+now = strftime(timefmt, localtime())
+
+chinese_weeks = [u'周一', u'周二', u'周三', u'周四', u'周五', u'周六', u'周日']
+
+diary_path = u".diary"
+if not os.path.exists(diary_path):
+    print 'There are no diaries.'
+    sys.exit(0)
+
+with open(diary_path, 'r') as inf:
+    diaries = [split.strip() for split in inf.read().decode('utf-8').split('-'*len(now)) if split.strip()]
+
+    daily_diaries = defaultdict(list)
+
+    for diary in diaries:
+        created, content = diary.split('\r\n')
+        created = datetime.strptime(created, timefmt)
+        content = '. '.join(s.strip() for s in content.split('\n')) # put content into one line
+        daily_diaries[created.isocalendar()].insert(0, content) # there could be more than one diary daily
+
+    daily_diaries = sorted(daily_diaries.iteritems(), key=lambda t: t[0], reverse=True) # sort according to date
+
+    week_diaries = []
+    for k, g in groupby(daily_diaries, key=lambda kv: kv[0][:2]):
+        print u'%d年第%d周:' % k
+
+        g = sorted(g, key = lambda kv: kv[0][2])
+        for dt, dairies in g:
+            weekday = chinese_weeks[dt[2]-1]
+            if len(dairies) > 1:
+                formated_dairies = ', '.join('(%d) %s' % diary for diary in enumerate(dairies, 1))
+            else:
+                formated_dairies = dairies[0]
+            report = '\t%s: %s' % (weekday, formated_dairies)
+            print report
+

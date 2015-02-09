@@ -1,0 +1,11 @@
+# find all hidden files in this directory
+find . -maxdepth 1 -type f -name '.*'
+
+# put my dotrcfiles into myDropbox and soft link it to my home dir
+ls /Dropbox/Unix/dotrcfiles/ -A1 | xargs -I{} ln -sf /Dropbox/Unix/dotrcfiles/{} {}
+
+# save my tricky commands related to find and ln to a file
+history | tail -100 | grep -e 'find\|ln' | cut -d ' ' -f 4- > bash_command.txt
+
+# rename folders 
+ls -1 | sed 'p; s/_[A-Za-z_]*$//g' | xargs -n2 mv

@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+export PATH=$PATH:/cygdrive/c/CSR_uEnergy_SDK-2.2.1.11/tools/bin
+
+for x in $@;
+do
+	[[ -f $x ]] || continue
+
+	if [ ${x: -2} == ".o" ]
+	then
+		xap-local-xap-objdump.exe -s $x | grep 'Contents of section' | sed -nr '\|(comment\|debug)|!p'  | cut -d. -f2- | rev | cut -c 2- | rev
+	fi
+done
+
+

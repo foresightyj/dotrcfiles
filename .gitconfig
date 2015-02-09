@@ -1,0 +1,44 @@
+[user]
+	name = foresightyj
+	email = imyuanjian@gmail.com
+[color]
+	diff = true 
+	ui = true
+[core]
+	autocrlf = true
+	editor = vim
+	fileMode = false
+	whitespace = cr-at-eol
+[diff]
+	tool = vimdiff
+[merge]
+	tool = my_merge
+[difftool]
+	prompt = false
+[mergetool "my_merge"]
+	cmd = my_merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+[svn]
+	rmdir = true
+[alias]
+	two = log -2
+	five = log -5
+	ten = log -10
+
+	lo = log --oneline
+	lol = log --oneline --graph --decorate --all
+
+	lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+
+	lg = !"git lg1"
+	
+	update = pull -v
+
+	df = diff --name-only
+
+	save = push -u --all origin
+	restore = "!f() { git checkout $(git rev-list -n 1 HEAD -- $1)~1 -- $(git diff --name-status $(git rev-list -n 1 HEAD -- $1)~1 | grep ^D | cut -f 2); }; f"
+
+[credential]
+	helper = cache --timeout=86400
+

@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+
+USAGE="$(basename $0) [SVN_BACKUP_DIR]"
+
+
+if [[ $# -ne 1 ]]; then
+	echo Usage: $USAGE
+	exit 1
+fi
+
+DEST_DIR=$1
+
+[[ -d $DEST_DIR ]] || (echo Directory $DEST_DIR not found && exit 1)
+
+echo  "Copying files"
+
+[[ -d 'dist' ]] && cp -r -v dist $DEST_DIR
+
+git ls-files | grep -v '/' | xargs -I{} cp -v {} $DEST_DIR/{}
+
+echo "SVN commit"
+
+echo "Enter commit message"
+read msg
+echo You typed $msg
+
+svn commit $DEST_DIR -m $msg

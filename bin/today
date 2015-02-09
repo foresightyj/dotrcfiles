@@ -1,0 +1,43 @@
+#!/usr/bin/python
+
+# the purpose of this script is for me to conveninently take notes of what I do everyday in the end of the week summarize the whole past week as a report
+
+
+import sys, tempfile, os
+from time import strftime, localtime
+from subprocess import call
+
+EDITOR = os.environ.get('EDITOR','vim') #that easy!
+
+initial_message = "" # if you want to set up the file somehow
+
+with tempfile.NamedTemporaryFile(suffix=".tmp") as tempfile:
+    tempfile.write(initial_message)
+    tempfile.flush()
+    call([EDITOR, tempfile.name])
+
+    with open(tempfile.name) as f:
+        content = f.read()
+
+# write content to my diary
+
+os.chdir(os.environ.get("HOME"))
+
+diary_path = ".diary"
+
+now = strftime("%a, %d %b %Y %H:%M:%S", localtime())
+
+def line_prepender(filename, string):
+    """ prepend string to a file"""
+    # create if not exist
+    open(filename, 'a').close()
+
+    with open(filename, 'r+') as f:
+        content = f.read()
+        f.seek(0, 0)
+        f.write(string)
+        f.write(content)
+
+# prepend so cat .diary so cat ~/.diary shows diaries in descending order
+line_prepender('.diary', '%s\r\n%s\r\n%s\r\n\r\n' % ('-'*len(now), now, content.strip()))
+
