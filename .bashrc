@@ -3,19 +3,24 @@ export EDITOR="vim"
 
 set -o noclobber # use >| to force overwrite
 
-
-if [ -f ~/.git-prompt.sh ]; then
+if [[ -f ~/.git-prompt.sh ]]; then
   source ~/.git-prompt.sh
-  # export PS1='[\[\e[01;32m\]\W\[\e[01;31m\]`__git_ps1`\[\e[00m\]]\$ ' 2> /dev/null
-  # export PS1="[\u@\h \W"'$(__git_ps1 " (%s)")'"]\$ "
-  # export PS1="[\e[0;32m\W\e[0m\e[0;31m"'$(__git_ps1 " (%s)")'"\e[0m]\$ "
   export GIT_PS1_SHOWCOLORHINTS=1
   export GIT_PS1_SHOWDIRTYSTATE=1
   export PS1="[\[\e[1;32m\]\W\[\e[0m\]\[\e[1;31m\]"'$(__git_ps1 " (%s)")'"\[\e[0m\]]\$ "
 fi
 
-#echo `date`
-#echo $(date)
+HISTFILESIZE=5000
+HISTSIZE=5000
+# : delimited patterns to ignore
+HISTIGNORE="&:ls:[bf]g:exit:pwd:clear:[ \t]*"
+
+alias ls="ls --color=auto"
+alias ll="ls -AlF"
+alias l="ls -1"
+alias vi='vim'
+alias apt-get='apt-cyg'
+alias remote='ssh -p 2200 -i ~/.ssh2/id_rsa foresightyj@192.168.0.110'
 
 #python << EOF
 #import time
@@ -30,14 +35,6 @@ fi
 #	print 'Good morning. Master!'
 #EOF
 
-alias vi='vim'
-# alias rmswp='rm -f .*.swp .*.swo'
-# alias gpa='git push -u --all origin'
-# alias gpa='git rev-parse && gpa > /dev/null &'
-
-alias apt-get='apt-cyg'
-
-alias remote='ssh -p 2200 -i ~/.ssh2/id_rsa foresightyj@192.168.0.110'
 
 function sudo()
 {
@@ -46,32 +43,17 @@ function sudo()
 
 function clean()
 {
-  rm -f *~ 
+  rm -f *~
   rm -f *.dmp
   rm -f *.TMP
 }
 
-HISTFILESIZE=5000
-HISTSIZE=5000
-# : delimited patterns to ignore
-HISTIGNORE="&:ls:[bf]g:exit:pwd:clear:[ \t]*"
 
-
-# copied from some guy's
-# some more ls aliases
-alias ls="ls --color=auto"
-alias ll="ls -AlF"
-alias l="ls -1"
-
-# This is GOLD for finding out what is taking so much space on your drives!
+# finding out what is taking so much space on your drives!
 alias ds="du -S | sort -n -r | less"
 # Show me the size (sorted) of only the folders in this directory
 alias folders="find . -maxdepth 1 -type d -print0 | xargs -0 -I{} du -sk {} | sort -nr"
 alias tree='find . -type d'
-
-alias cc='gcc'
-
-# alias vimhc='vim *.{c,h}'
 alias gitrmdeleted='git ls-files -z --deleted | xargs -I{} --null git rm {}'
 
 function grepc {
@@ -95,7 +77,7 @@ function grepr {
 }
 
 function grepri {
-  grep -R -i -I $@ . 
+  grep -R -i -I $@ .
 }
 
 alias less='less -R'
@@ -122,11 +104,15 @@ function o {
 }
 
 alias cmd='cygstart cmd'
-#alias command='cmd /C start cmd'
 
-alias edit='/cygdrive/d/Program\ Files/Sublime\ Text\ 3/sublime_text.exe'
-# alias subl='edit'
-function subl() { edit $(cygpath -w "$1") & } # run automatically in background
+
+if [[ -e "/cygdrive/c/Program Files/Sublime Text 3/sublime_text.exe" ]]; then
+  alias edit='/cygdrive/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe' 
+else
+  alias edit='/cygdrive/d/Program\ Files/Sublime\ Text\ 3/sublime_text.exe'
+fi
+
+function subl() { edit $(cygpath -w "$@") & } # run automatically in background
 
 alias lsext='ls -1 * | rev | cut -d. -f1 | rev | sort | uniq'
 
@@ -141,7 +127,7 @@ function cleanuphtml {
 
 function alert {
   h=0 m=0 s=0
-  case $# in 
+  case $# in
     1) s=$1;;
     2) m=$1 s=$2;;
     3) h=$1 m=$2 s=$3;;
@@ -205,8 +191,8 @@ function rmdups {
 	mkdir -p _cleanup
 	fdupes -r -f . | xargs -I{} mv -t ./_cleanup -- {}
 }
-#ls -1 | sed -n 's/\([0-9][0-9]\) \([A-Z][a-z]*\)[0-9 -]*\(.*\)/"&" "\2 \1 \3"/p' | xargs -n2 mv -- 
-#ls -1 | sed -n 's/.*/"&"/; p; s/Jan/2013 01/; s/Feb/2013 02/; s/Mar/2013 03/; s/Apr/2013 04/; p' | xargs -n 2 mv 
+#ls -1 | sed -n 's/\([0-9][0-9]\) \([A-Z][a-z]*\)[0-9 -]*\(.*\)/"&" "\2 \1 \3"/p' | xargs -n2 mv --
+#ls -1 | sed -n 's/.*/"&"/; p; s/Jan/2013 01/; s/Feb/2013 02/; s/Mar/2013 03/; s/Apr/2013 04/; p' | xargs -n 2 mv
 
-# export GREP_OPTIONS="--exclude-dir=\.svn" 
+# export GREP_OPTIONS="--exclude-dir=\.svn"
 
