@@ -1,4 +1,4 @@
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:/cygdrive/c/Windows/:$PATH"
 export EDITOR="vim"
 
 set -o noclobber # use >| to force overwrite
@@ -112,7 +112,9 @@ else
   alias edit='/cygdrive/d/Program\ Files/Sublime\ Text\ 3/sublime_text.exe'
 fi
 
-function subl() { edit $(cygpath -w "$@") & } # run automatically in background
+function subl() { 
+  edit "$(cygpath -w "$*")" & 
+} # run automatically in background
 
 alias lsext='ls -1 * | rev | cut -d. -f1 | rev | sort | uniq'
 
