@@ -8,6 +8,11 @@ from time import strftime, localtime
 from datetime import date, datetime
 from collections import defaultdict
 from itertools import groupby
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-r", "--recent", help="dump dairies of the most recent **RECENT** number of weeks", type=int, default=1)
+args = parser.parse_args()
 
 os.chdir(os.environ.get("HOME"))
 
@@ -20,6 +25,13 @@ diary_path = u".diary"
 if not os.path.exists(diary_path):
     print 'There are no diaries.'
     sys.exit(0)
+
+def take(iters, n):
+    for i, item in enumerate(iters):
+        if i == n:
+            break
+        yield item
+
 
 with open(diary_path, 'r') as inf:
     diaries = [split.strip() for split in inf.read().decode('utf-8').split('-'*len(now)) if split.strip()]
@@ -35,7 +47,7 @@ with open(diary_path, 'r') as inf:
     daily_diaries = sorted(daily_diaries.iteritems(), key=lambda t: t[0], reverse=True) # sort according to date
 
     week_diaries = []
-    for k, g in groupby(daily_diaries, key=lambda kv: kv[0][:2]):
+    for k, g in take(groupby(daily_diaries, key=lambda kv: kv[0][:2]), args.recent):
         print u'%d年第%d周:' % k
 
         g = sorted(g, key = lambda kv: kv[0][2])
