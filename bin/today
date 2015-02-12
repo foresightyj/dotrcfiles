@@ -24,9 +24,11 @@ with tempfile.NamedTemporaryFile(suffix=".tmp") as tempfile:
     call([EDITOR, tempfile.name])
 
     with open(tempfile.name) as f:
-        content = f.read()
+        content = f.read().strip()
 
-# write content to my diary
+if not content:
+    print 'Empty Content. Quit'
+    sys.exit(0)
 
 os.chdir(os.environ.get("HOME"))
 
@@ -48,5 +50,5 @@ def line_prepender(filename, string):
         f.write(content)
 
 # prepend so cat .diary so cat ~/.diary shows diaries in descending order
-line_prepender('.diary', '%s\r\n%s\r\n%s\r\n\r\n' % ('-'*len(time_header), time_header, content.strip()))
+line_prepender('.diary', '%s\r\n%s\r\n%s\r\n\r\n' % ('-'*len(time_header), time_header, content))
 

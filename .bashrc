@@ -22,6 +22,8 @@ alias vi='vim'
 alias apt-get='apt-cyg'
 alias remote='ssh -p 2200 -i ~/.ssh2/id_rsa foresightyj@192.168.0.110'
 
+alias yesterday='today -o 1'
+
 #python << EOF
 #import time
 #now = time.strftime("%p %H")
