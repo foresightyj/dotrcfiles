@@ -23,6 +23,7 @@ alias apt-get='apt-cyg'
 alias remote='ssh -p 2200 -i ~/.ssh2/id_rsa foresightyj@192.168.0.110'
 
 alias yesterday='today -o 1'
+alias _bcompare="/cygdrive/e/NutStore/Software/Beyond\ Compare\ 4/BCompare.exe"
 
 #python << EOF
 #import time
@@ -57,33 +58,12 @@ alias ds="du -S | sort -n -r | less"
 alias folders="find . -maxdepth 1 -type d -print0 | xargs -0 -I{} du -sk {} | sort -nr"
 alias tree='find . -type d'
 alias gitrmdeleted='git ls-files -z --deleted | xargs -I{} --null git rm {}'
-
-function grepc {
-  grep -R $@ --include='*.c' .
-}
-function grepy {
-  grep -R $@ --include='*.py' .
-}
-function grepcs {
-  grep -r $@ --include='*.cs' --exclude-dir=\.svn .
-}
-function grepcshtml {
-  grep -r $@ --include='*.cshtml' --exclude-dir=\.svn .
-}
-function grepxml {
-  grep -r $@ --include='*.xml' --exclude-dir=\.svn .
-}
-
-function grepr {
-  grep -R -I $@ . # with -I option, it would not match any binary file
-}
-
-function grepri {
-  grep -R -i -I $@ .
-}
-
 alias less='less -R'
 alias share='python -m SimpleHTTPServer'
+
+alias ackpy='ack --python'
+alias ackcs='ack --csharp'
+alias ackcshtml='ack --cshtml'
 
 # alias stripccomments='mkdir -p stripped && ls *c *h | xargs -I{} gcc -fpreprocessed -dD -E {} > ./stripped/{}'
 # ls -d Unit_[1-7] | xargs -I@ sh -c "mv @/*.mp4 @_mp4" # move mp4 files in subdirectory into new *_mp4 directories
@@ -107,16 +87,22 @@ function o {
 
 alias cmd='cygstart cmd'
 
+SUBLIME1="/cygdrive/c/Program Files/Sublime Text 3/sublime_text.exe"
+SUBLIME2='/cygdrive/d/Program\ Files/Sublime\ Text\ 3/sublime_text.exe'
 
-if [[ -e "/cygdrive/c/Program Files/Sublime Text 3/sublime_text.exe" ]]; then
-  alias edit='/cygdrive/c/Program\ Files/Sublime\ Text\ 3/sublime_text.exe' 
+if [[ -e $SUBLIME1 ]]; then
+  alias edit=$SUBLIME1
 else
-  alias edit='/cygdrive/d/Program\ Files/Sublime\ Text\ 3/sublime_text.exe'
+  alias edit=$SUBLIME2
 fi
 
 function subl() { 
-  edit "$(cygpath -w "$*")" & 
+  edit "$(cygpath -w "$1")" & 
 } # run automatically in background
+
+function bcompare() {
+  _bcompare $@
+}
 
 alias lsext='ls -1 * | rev | cut -d. -f1 | rev | sort | uniq'
 
