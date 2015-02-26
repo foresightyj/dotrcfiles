@@ -118,7 +118,7 @@
 --type-add=aspx:ext:master,ascx,asmx,aspx,svc
 
 # C#
---type-add=csharp:ext:cs
+--type-add=cs:ext:cs
 
 # ASP.NET MVC Razor
 --type-add=cshtml:ext:cshtml
