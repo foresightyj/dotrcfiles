@@ -96,8 +96,8 @@ else
   alias edit=$SUBLIME2
 fi
 
-function subl() { 
-  edit "$(cygpath -w "$1")" & 
+function subl() {
+  edit "$(cygpath -w "$1")" &
 } # run automatically in background
 
 function bcompare() {
