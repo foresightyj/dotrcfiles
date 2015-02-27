@@ -21,9 +21,19 @@ alias l="ls -1"
 alias vi='vim'
 alias apt-get='apt-cyg'
 alias remote='ssh -p 2200 -i ~/.ssh2/id_rsa foresightyj@192.168.0.110'
+alias local='ssh -p 2200 -i ~/.ssh2/id_rsa yj@192.168.56.1'
 
 alias yesterday='today -o 1'
-alias _bcompare="/cygdrive/e/NutStore/Software/Beyond\ Compare\ 4/BCompare.exe"
+
+function share()
+{
+  addr=$(hostname -I | cut -f3 -d' ')
+  port=8080
+  link="http://$addr:$port/"
+  echo "Share with $link. Already Copied to your clipboard."
+  echo $link | putclip
+  twistd -n web -p $port --path .
+}
 
 #python << EOF
 #import time
@@ -59,10 +69,10 @@ alias folders="find . -maxdepth 1 -type d -print0 | xargs -0 -I{} du -sk {} | so
 alias tree='find . -type d'
 alias gitrmdeleted='git ls-files -z --deleted | xargs -I{} --null git rm {}'
 alias less='less -R'
-alias share='python -m SimpleHTTPServer'
+#alias share='python -m SimpleHTTPServer'
 
 alias ackpy='ack --python'
-alias ackcs='ack --csharp'
+alias ackcs='ack --cs'
 alias ackcshtml='ack --cshtml'
 
 # alias stripccomments='mkdir -p stripped && ls *c *h | xargs -I{} gcc -fpreprocessed -dD -E {} > ./stripped/{}'
@@ -103,7 +113,7 @@ function subl() {
 } # run automatically in background
 
 function bcompare() {
-  _bcompare $@
+  /cygdrive/e/NutStore/Software/Beyond\ Compare\ 4/BCompare.exe $@
 }
 
 alias lsext='ls -1 * | rev | cut -d. -f1 | rev | sort | uniq'
