@@ -87,17 +87,19 @@ function o {
 
 alias cmd='cygstart cmd'
 
-SUBLIME1="/cygdrive/c/Program Files/Sublime Text 3/sublime_text.exe"
-SUBLIME2='/cygdrive/d/Program\ Files/Sublime\ Text\ 3/sublime_text.exe'
-
-if [[ -e $SUBLIME1 ]]; then
-  alias edit=$SUBLIME1
-else
-  alias edit=$SUBLIME2
-fi
-
 function subl() {
-  edit "$(cygpath -w "$1")" &
+  SUBLIME1='/cygdrive/c/Program Files/Sublime Text 3/sublime_text.exe'
+  SUBLIME2='/cygdrive/d/Program Files/Sublime Text 3/sublime_text.exe'
+
+  if [[ -e "$SUBLIME1" ]]; then
+    SUBLIME=$SUBLIME1
+  elif [[ -e "$SUBLIME2" ]]; then
+    SUBLIME=$SUBLIME2
+  else
+    echo "No Sublime Text Found"
+  fi
+
+  "$SUBLIME" "$(cygpath -w "$1")" &
 } # run automatically in background
 
 function bcompare() {
@@ -181,6 +183,7 @@ function rmdups {
 	mkdir -p _cleanup
 	fdupes -r -f . | xargs -I{} mv -t ./_cleanup -- {}
 }
+
 #ls -1 | sed -n 's/\([0-9][0-9]\) \([A-Z][a-z]*\)[0-9 -]*\(.*\)/"&" "\2 \1 \3"/p' | xargs -n2 mv --
 #ls -1 | sed -n 's/.*/"&"/; p; s/Jan/2013 01/; s/Feb/2013 02/; s/Mar/2013 03/; s/Apr/2013 04/; p' | xargs -n 2 mv
 
