@@ -48,15 +48,6 @@ alias apt-get='apt-cyg'
 alias remote='ssh -p 2200 -i ~/.ssh2/id_rsa foresightyj@192.168.0.110'
 # alias local='ssh -p 2200 -i ~/.ssh2/id_rsa yj@192.168.56.1'
 
-# LINQPAD RUN
-function lprun()
-{
-  _lprun=$(cygpath -u "E:\\LinqPad\\lprun.exe")
-  prog=$(cygpath -w $1)
-  echo Run: $_lprun \"$prog\"
-  eval $_lprun \"$prog\"
-}
-
 alias yesterday='today -o 1'
 
 function share()

@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+_lprun=$(cygpath -u "E:\\LinqPad\\lprun.exe")
+prog=$(cygpath -w $1)
+echo Run: $_lprun \"$prog\"
+eval $_lprun \"$prog\"
+
