@@ -28,9 +28,9 @@ function __prompt_command() {
       export GIT_PS1_SHOWCOLORHINTS=1
       export GIT_PS1_SHOWDIRTYSTATE=1
       #export PS1="[\[\e[1;32m\]\W\[\e[0m\]\[\e[1;31m\]"'$(__git_ps1 " (%s)")'"\[\e[0m\]]\$ "
+      PS1+="${Pur}"$(__git_ps1 " (%s)")"${RCol}"
     fi
 
-    PS1+='$(__git_ps1 " (%s)")'
     PS1+=']\$ '
 }
 
