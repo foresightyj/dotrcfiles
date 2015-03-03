@@ -174,7 +174,7 @@ function alert {
 # alias bsize='sizes /cygdrive/e/Learning/Baiduyun/百度云同步盘/'
 #alias bsize='du -sk /cygdrive/e/Learning/Baiduyun/百度云同步盘/'
 
-alias check='du --max-depth 2 -h /Dropbox/toberemoved2'
+#alias check='du --max-depth 2 -h /Dropbox/toberemoved2'
 alias fullscan='ls -Rlc1Cp --full-time'
 
 # ls -Rlc1Cp --full-time >> /Desktop/WDElement_All_Files.txt
