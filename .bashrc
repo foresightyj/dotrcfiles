@@ -1,4 +1,4 @@
-export PATH="$HOME/bin:/cygdrive/c/Windows/:$PATH"
+export PATH="/cygdrive/c/Windows/:$PATH"
 export EDITOR="vim"
 
 set -o noclobber # use >| to force overwrite
@@ -34,7 +34,6 @@ function __prompt_command() {
     PS1+=']\$ '
 }
 
-
 HISTFILESIZE=5000
 HISTSIZE=5000
 # : delimited patterns to ignore
@@ -49,6 +48,16 @@ alias remote='ssh -p 2200 -i ~/.ssh2/id_rsa foresightyj@192.168.0.110'
 # alias local='ssh -p 2200 -i ~/.ssh2/id_rsa yj@192.168.56.1'
 
 alias yesterday='today -o 1'
+
+# finding out what is taking so much space on your drives!
+alias ds="du -S | sort -n -r | less"
+# Show me the size (sorted) of only the folders in this directory
+alias gitrmdeleted='git ls-files -z --deleted | xargs -I{} --null git rm {}'
+alias less='less -R'
+
+alias ackpy='ack --python'
+alias ackcs='ack --cs'
+alias ackcshtml='ack --cshtml'
 
 function share()
 {
@@ -86,23 +95,6 @@ function clean()
   rm -f *.dmp
   rm -f *.TMP
 }
-
-
-# finding out what is taking so much space on your drives!
-alias ds="du -S | sort -n -r | less"
-# Show me the size (sorted) of only the folders in this directory
-alias folders="find . -maxdepth 1 -type d -print0 | xargs -0 -I{} du -sk {} | sort -nr"
-alias tree='find . -type d'
-alias gitrmdeleted='git ls-files -z --deleted | xargs -I{} --null git rm {}'
-alias less='less -R'
-#alias share='python -m SimpleHTTPServer'
-
-alias ackpy='ack --python'
-alias ackcs='ack --cs'
-alias ackcshtml='ack --cshtml'
-
-# alias stripccomments='mkdir -p stripped && ls *c *h | xargs -I{} gcc -fpreprocessed -dD -E {} > ./stripped/{}'
-# ls -d Unit_[1-7] | xargs -I@ sh -c "mv @/*.mp4 @_mp4" # move mp4 files in subdirectory into new *_mp4 directories
 
 function o {
 	if [[ $# = 0 ]]; then
