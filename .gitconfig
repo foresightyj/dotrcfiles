@@ -20,6 +20,11 @@
 [svn]
 	rmdir = true
 [alias]
+	co = checkout
+	cm = commit
+	st = status -s
+	last = log -1 HEAD
+
 	two = log -2
 	five = log -5
 	ten = log -10
