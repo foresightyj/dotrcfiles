@@ -62,7 +62,8 @@ alias ackcshtml='ack --cshtml'
 function share()
 {
   #addr=$(hostname -I | cut -f3 -d' ')
-  addr=$(python -c 'import socket; print socket.gethostbyname(socket.gethostname())')
+  #addr=$(python -c 'import socket; print socket.gethostbyname(socket.gethostname())')
+  addr=`hostname -I | sed 's/ /\n/g' | grep '192.168.0'` # due to vpn setup, ip addr can be really screwed up so use this less intelligent version.
   port=8080
   link="http://$addr:$port/"
   echo "Share with $link. Already Copied to your clipboard."
