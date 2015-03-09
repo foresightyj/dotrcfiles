@@ -28,6 +28,15 @@
 # http://subversion.tigris.org/
 --ignore-directory=is:.svn
 
+# IntelliJ .idea file
+--ignore-directory=is:.idea
+
+# Nuget packages
+--ignore-directory=is:packages
+
+# Visual Studio bin folder
+--ignore-directory=is:bin
+
 # autoconf
 # http://www.gnu.org/software/autoconf/
 --ignore-directory=is:autom4te.cache

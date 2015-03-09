@@ -26,6 +26,8 @@ filetype off
 filetype plugin indent on
 syntax on
 
+let python_highlight_all = 1
+
 let mapleader = ","
 
 " disable dup checks will significantly speed up vim
