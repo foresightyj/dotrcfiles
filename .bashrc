@@ -37,15 +37,25 @@ function __prompt_command() {
 HISTFILESIZE=5000
 HISTSIZE=5000
 # : delimited patterns to ignore
-HISTIGNORE="&:ls:[bf]g:exit:pwd:clear:[ \t]*"
+HISTIGNORE="&:ls:[bf]g:exit:pwd:clear:[ ]*"
 
 alias ls="ls --color=auto"
 alias ll="ls -AlF"
 alias l="ls -1"
 alias vi='vim'
+alias pip='pip --default-timeout=60' # 60 seconds
 alias apt-get='apt-cyg'
 alias remote='ssh -p 2200 -i ~/.ssh2/id_rsa foresightyj@192.168.0.110'
+# alias remote223='ssh -p 2200 -i ~/.ssh3/id_rsa foresightyj@192.168.0.223'
+# alias aliyun='ssh -i ~/.ssh2/id_rsa root@218.244.133.125'
+# alias linux1='ssh -i ~/.ssh2/id_rsa foresightyj@192.168.0.182'
 # alias local='ssh -p 2200 -i ~/.ssh2/id_rsa yj@192.168.56.1'
+
+alias tree1='tree -L 1'
+alias tree2='tree -L 2'
+alias tree3='tree -L 3'
+
+alias yesterday='today -o 1'
 
 alias yesterday='today -o 1'
 
@@ -115,6 +125,7 @@ function o {
 }
 
 alias cmd='cygstart cmd'
+alias npp='cygstart /cygdrive/d/npp.6.7.8.1.bin/notepad++.exe'
 
 function subl() {
   SUBLIME1='/cygdrive/c/Program Files/Sublime Text 3/sublime_text.exe'
