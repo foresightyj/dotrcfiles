@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ $# -lt 1 -o $# -gt 2 ]; then
+  echo "Usage: aliyunget aliyun_path [local_dest_path]"; exit 1
+fi
+
+if (( $# == 2)); then
+  FILENAME=$2
+else
+  FILENAME=$(basename "$1")
+fi
+
+echo rsync -avz root@218.244.133.125:$1 $FILENAME
+
+rsync -avz --rsh='ssh -i /home/yj/.ssh2/id_rsa' root@218.244.133.125:$1 $FILENAME
+

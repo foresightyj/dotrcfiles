@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+echo 'checkout-pr called'
+
+checkout-pr () {
+  git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1;
+}
