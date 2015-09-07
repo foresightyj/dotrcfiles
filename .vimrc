@@ -16,7 +16,6 @@ else
 	"colorscheme ir_black
 endif
 
-
 filetype off
 
 "call pathogen#infect()
