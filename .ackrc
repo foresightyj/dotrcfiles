@@ -132,9 +132,6 @@
 # ASP.NET MVC Razor
 --type-add=cshtml:ext:cshtml
 
-# .config
---type-add=config:ext:config
-
 # Assembly
 --type-add=asm:ext:asm,s
 

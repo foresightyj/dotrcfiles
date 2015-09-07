@@ -16,8 +16,6 @@ else
 	"colorscheme ir_black
 endif
 
-set number
-set hlsearch
 
 filetype off
 
@@ -35,6 +33,9 @@ let mapleader = ","
 " disable dup checks will significantly speed up vim
 let g:miniBufExplCheckDupeBufs = 0
 map <Leader>m :MiniBufExplorer<cr>
+
+set number
+set hlsearch
 
 let g:NERDTreeWinPos = "left"
 nnoremap <silent> <F12> :NERDTreeToggle<CR>
@@ -105,8 +106,6 @@ autocmd FileType c map <F7> :!gcc GoGo%:p:r.out" "%:p" && "%:p:r.out"<CR>
 " autocmd BufNewFile,BufRead,BufWritePost *.h execute '!astyle %'
 autocmd BufWritePre *.{c,h} :normal gg=G
 
-set tabstop=4 softtabstop=2 shiftwidth=2 noexpandtab
-
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
 autocmd Filetype sh setlocal expandtab tabstop=2 shiftwidth=2
 autocmd Filetype c setlocal expandtab tabstop=2 shiftwidth=2
@@ -118,7 +117,7 @@ autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>
 
 " automatically insert the Python header to a newly created Python file
 "au BufEnter *.py if getline(1) == "" | call pythonHeader#PythonHeader() | endif
-" au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
+au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
 
 " au BufEnter .vimrc call rmLeadingColon#RmLeadingColon()
 
