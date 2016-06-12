@@ -18,7 +18,7 @@
 # The copy in your home directory (~/.profile) is yours, please
 # feel free to customise it to create a shell
 # environment to your liking.  If you feel a change
-# would be benificial to all, please feel free to send
+# would be beneficial to all, please feel free to send
 # a patch to the cygwin mailing list.
 
 # User dependent .profile file
